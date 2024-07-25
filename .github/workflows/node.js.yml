@@ -12,16 +12,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '16.x'
+        node-version: '14.x' # or the version you need
     - name: Install dependencies
       run: npm install
+      working-directory: ./path/to/your/project # Ensure this is the correct path to your package.json
     - name: Build
       run: npm run build
+      working-directory: ./path/to/your/project # Ensure this is the correct path to your project
     - name: Run tests
       run: npm test
-
-    timeout-minutes: 10
+      working-directory: ./path/to/your/project # Ensure this is the correct path to your project
