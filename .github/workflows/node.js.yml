@@ -20,10 +20,10 @@ jobs:
         node-version: '14.x' # or the version you need
     - name: Install dependencies
       run: npm install
-      working-directory: ./path/to/your/project # Ensure this is the correct path to your package.json
+      working-directory: ./subdirectory-path
     - name: Build
       run: npm run build
-      working-directory: ./path/to/your/project # Ensure this is the correct path to your project
+      working-directory: ./subdirectory-path
     - name: Run tests
       run: npm test
-      working-directory: ./path/to/your/project # Ensure this is the correct path to your project
+      working-directory: ./subdirectory-path
