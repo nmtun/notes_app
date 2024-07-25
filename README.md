@@ -8,6 +8,8 @@
 ```sh
    cd  backend
    npm install
+```
+```sh
    cd frontend
    npm install
 ```
@@ -21,6 +23,8 @@
 ```sh
   cd backend
   npm start
+```
+```sh
   cd fronted
   npm run dev (follow the http://localhost:3000)
 ```
