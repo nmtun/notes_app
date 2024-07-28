@@ -15,8 +15,7 @@
 ```
 3. **.env file:**
 ```sh
-  PORT=3000
-  MONGODB_URI=your_mongodb_connection_string
+  MONGODB_URL=your_mongodb_connection_string
   JWT_SECRET=your_jwt_secret
 ```
 4. **Run:**
@@ -26,5 +25,5 @@
 ```
 ```sh
   cd fronted
-  npm run dev (follow the http://localhost:3000)
+  npm run dev (follow the http://localhost:5173)
 ```
