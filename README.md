@@ -25,5 +25,5 @@
 ```
 ```sh
   cd fronted
-  npm run dev (follow the http://localhost:5173)
+  npm run dev (follow the link http://localhost:5173)
 ```
