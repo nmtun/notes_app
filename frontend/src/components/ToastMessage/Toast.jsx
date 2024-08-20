@@ -17,7 +17,7 @@
       if (isShown) {
         const timeoutId = setTimeout(() => {
           onClose()
-        }, 1000)
+        }, 2000)
         return () => {
           clearTimeout(timeoutId)
         }
