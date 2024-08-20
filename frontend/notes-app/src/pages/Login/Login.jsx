@@ -26,7 +26,7 @@ const Login = () => {
 
     //Login API call here
     try {
-      const response = await axiosInstance.post("https://vercel.com/tungs-projects-52ecff6e/notes-app-api/login", {
+      const response = await axiosInstance.post("notes-app-zeta-ruby.vercel.app/login", {
         email: email,
         password: password
       })
