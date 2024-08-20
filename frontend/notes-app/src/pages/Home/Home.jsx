@@ -60,7 +60,7 @@ const Home = () => {
   //Get user info 
   const getUserInfo = async () => {
     try {
-      const response = await axiosInstance.get("notes-app-zeta-ruby.vercel.app/get-user")
+      const response = await axiosInstance.get("/get-user")
       if(response.data && response.data.user){
         setUserInfo(response.data.user)
       }
@@ -75,7 +75,7 @@ const Home = () => {
   //Get all notes
   const getAllNotes = async () => {
     try{
-      const response = await axiosInstance.get("notes-app-zeta-ruby.vercel.app/get-all-notes")
+      const response = await axiosInstance.get("/get-all-notes")
 
       if(response.data && response.data.notes){
         setAllNotes(response.data.notes)
@@ -90,7 +90,7 @@ const Home = () => {
     const noteId = data._id
 
     try {
-      const response = await axiosInstance.delete("notes-app-zeta-ruby.vercel.app/delete-note/" + noteId)
+      const response = await axiosInstance.delete("/delete-note/" + noteId)
         
       if(response.data && !response.data.error){
         showToastMessage("Note deleted successfully", 'delete')
@@ -106,7 +106,7 @@ const Home = () => {
   //Search note
   const onSearchNote = async (query) => {
     try {
-      const response = await axiosInstance.get("notes-app-zeta-ruby.vercel.app/search-notes", {
+      const response = await axiosInstance.get("/search-notes", {
         params: {query}
       })
 
@@ -124,7 +124,7 @@ const Home = () => {
     const noteId = noteData._id
 
     try {
-      const response = await axiosInstance.put("notes-app-zeta-ruby.vercel.app/update-note-pinned/" + noteId, {
+      const response = await axiosInstance.put("/update-note-pinned/" + noteId, {
         isPinned: !noteData.isPinned
       })
 
