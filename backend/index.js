@@ -19,7 +19,7 @@ const {authenticateToken} = require("./utilities")
 
 app.use(
     cors({
-        origin: ["https://notes-app.vercel.app"],
+        origin: ["https://vercel.com/tungs-projects-52ecff6e/notes-app-api/"],
         methods:["POST", "GET", "PUT", "DELETE"],
         credentials: true
     })
@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
 //API using
 
 //Create account
-app.post("/create-account", async(req, res) => {
+app.post("https://vercel.com/tungs-projects-52ecff6e/notes-app-api/create-account", async(req, res) => {
     const {fullName, email, password} = req.body
 
     if(!fullName) {
@@ -84,7 +84,7 @@ app.post("/create-account", async(req, res) => {
 })
 
 //Login
-app.post("/login", async(req, res) => {
+app.post("https://vercel.com/tungs-projects-52ecff6e/notes-app-api/login", async(req, res) => {
     const {email, password} = req.body
 
     if(!email){
@@ -121,7 +121,7 @@ app.post("/login", async(req, res) => {
 })
 
 //Get user
-app.get("/get-user", authenticateToken, async(req, res) => {
+app.get("https://vercel.com/tungs-projects-52ecff6e/notes-app-api/get-user", authenticateToken, async(req, res) => {
     const {user} = req.user
     const isUser = await User.findOne({_id: user._id})
 
@@ -141,7 +141,7 @@ app.get("/get-user", authenticateToken, async(req, res) => {
 })
 
 //Add note
-app.post("/add-note", authenticateToken, async(req, res) => {
+app.post("https://vercel.com/tungs-projects-52ecff6e/notes-app-api/add-note", authenticateToken, async(req, res) => {
     const {title, content, tags} = req.body
     const {user} = req.user
 
@@ -177,7 +177,7 @@ app.post("/add-note", authenticateToken, async(req, res) => {
 })
 
 //Edit-note
-app.put("/edit-note/:noteId", authenticateToken, async(req, res) => {
+app.put("https://vercel.com/tungs-projects-52ecff6e/notes-app-api/edit-note/:noteId", authenticateToken, async(req, res) => {
     const noteId = req.params.noteId
     const {title, content, tags, isPinned} = req.body
     const {user} = req.user
@@ -216,7 +216,7 @@ app.put("/edit-note/:noteId", authenticateToken, async(req, res) => {
 })
 
 //Get all notes
-app.get("/get-all-notes/", authenticateToken, async(req, res) => {
+app.get("https://vercel.com/tungs-projects-52ecff6e/notes-app-api/get-all-notes/", authenticateToken, async(req, res) => {
     const {user} = req.user
 
     try {
@@ -236,7 +236,7 @@ app.get("/get-all-notes/", authenticateToken, async(req, res) => {
 })
 
 //Delete note
-app.delete("/delete-note/:noteId", authenticateToken, async(req, res) => {
+app.delete("https://vercel.com/tungs-projects-52ecff6e/notes-app-api/delete-note/:noteId", authenticateToken, async(req, res) => {
     const noteId = req.params.noteId
     const {user} = req.user
 
@@ -265,7 +265,7 @@ app.delete("/delete-note/:noteId", authenticateToken, async(req, res) => {
 })
 
 //Update pin note
-app.put("/update-note-pinned/:noteId", authenticateToken, async(req, res) => {
+app.put("https://vercel.com/tungs-projects-52ecff6e/notes-app-api/update-note-pinned/:noteId", authenticateToken, async(req, res) => {
     const noteId = req.params.noteId
     const {isPinned} = req.body
     const {user} = req.user
@@ -295,7 +295,7 @@ app.put("/update-note-pinned/:noteId", authenticateToken, async(req, res) => {
 })
 
 //Search note
-app.get("/search-notes", authenticateToken, async (req, res) => {
+app.get("https://vercel.com/tungs-projects-52ecff6e/notes-app-api/search-notes", authenticateToken, async (req, res) => {
     const { user } = req.user;
     const { query } = req.query;
 
