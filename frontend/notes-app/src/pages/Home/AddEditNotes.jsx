@@ -12,7 +12,7 @@ const AddEditNotes = ({noteData, type, getAllNotes, onClose, showToastMessage}) 
     //add note
     const addNewNote = async () => {
         try {
-            const response = await axiosInstance.post("/add-note", {
+            const response = await axiosInstance.post("https://vercel.com/tungs-projects-52ecff6e/notes-app-api/add-note", {
                 title,
                 content,
                 tags
@@ -34,7 +34,7 @@ const AddEditNotes = ({noteData, type, getAllNotes, onClose, showToastMessage}) 
         const noteId = noteData._id
 
         try {
-            const response = await axiosInstance.put("/edit-note/" + noteId, {
+            const response = await axiosInstance.put("https://vercel.com/tungs-projects-52ecff6e/notes-app-api/edit-note/" + noteId, {
                 title,
                 content,
                 tags
