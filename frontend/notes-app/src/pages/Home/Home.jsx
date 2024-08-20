@@ -60,7 +60,7 @@ const Home = () => {
   //Get user info 
   const getUserInfo = async () => {
     try {
-      const response = await axiosInstance.get("/get-user")
+      const response = await axiosInstance.get("https://vercel.com/tungs-projects-52ecff6e/notes-app-api/get-user")
       if(response.data && response.data.user){
         setUserInfo(response.data.user)
       }
@@ -75,7 +75,7 @@ const Home = () => {
   //Get all notes
   const getAllNotes = async () => {
     try{
-      const response = await axiosInstance.get("/get-all-notes")
+      const response = await axiosInstance.get("https://vercel.com/tungs-projects-52ecff6e/notes-app-api/get-all-notes")
 
       if(response.data && response.data.notes){
         setAllNotes(response.data.notes)
@@ -90,7 +90,7 @@ const Home = () => {
     const noteId = data._id
 
     try {
-      const response = await axiosInstance.delete("/delete-note/" + noteId)
+      const response = await axiosInstance.delete("https://vercel.com/tungs-projects-52ecff6e/notes-app-api/delete-note/" + noteId)
         
       if(response.data && !response.data.error){
         showToastMessage("Note deleted successfully", 'delete')
@@ -106,7 +106,7 @@ const Home = () => {
   //Search note
   const onSearchNote = async (query) => {
     try {
-      const response = await axiosInstance.get("/search-notes", {
+      const response = await axiosInstance.get("https://vercel.com/tungs-projects-52ecff6e/notes-app-api/search-notes", {
         params: {query}
       })
 
@@ -124,7 +124,7 @@ const Home = () => {
     const noteId = noteData._id
 
     try {
-      const response = await axiosInstance.put("/update-note-pinned/" + noteId, {
+      const response = await axiosInstance.put("https://vercel.com/tungs-projects-52ecff6e/notes-app-api/update-note-pinned/" + noteId, {
         isPinned: !noteData.isPinned
       })
 
