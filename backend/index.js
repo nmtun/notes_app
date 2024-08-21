@@ -322,6 +322,7 @@ app.get("/search-notes", authenticateToken, async (req, res) => {
     }
 });
 
-app.listen(8000)
+//app.listen(8000)
+app.listen(`https://notes-app-server-zeta.vercel.app`)
 
 module.exports = app
