@@ -16,6 +16,7 @@ app.use(express.json())
 
 const jwt = require("jsonwebtoken")
 const {authenticateToken} = require("./utilities")
+const bcrypt = require("bcrypt")
 
 app.use(
     cors({
@@ -60,10 +61,12 @@ app.post("/create-account", async(req, res) => {
         })
     }
 
+    const hashedPassword = await bcrypt.hash(password, 10)
+
     const user = new User({
         fullName,
         email,
-        password,
+        password: hashedPassword
     })
 
     await user.save()
@@ -97,8 +100,10 @@ app.post("/login", async(req, res) => {
     if(!userInfo){
         return res.status(400).json({message: "User not found"})
     }
+   
+    const isPasswordValid = await bcrypt.compare(password, userInfo.password)
 
-    if(userInfo.email == email && userInfo.password == password){
+    if (isPasswordValid) {
         const user = {user: userInfo}
         const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
             expiresIn: "36000m"
@@ -113,7 +118,7 @@ app.post("/login", async(req, res) => {
     } else {
         return res.status(400).json({
             error: true,
-            message: "Invalid Credential"
+            message: "Invalid Credentials"
         })
     }
 })
