@@ -1,1 +1,1 @@
-export const BASE_URL = 'https://notes-app-client-wheat.vercel.app'
+export const BASE_URL = 'https://notes-app-server-zeta.vercel.app'
