@@ -12,7 +12,6 @@ import AddNotesImg from '../../assets/Images/add-note.svg'
 import NoDataImg from '../../assets/Images/no-data.png'
 import Loading from '../../components/Loading/Loading'
 
-
 const Home = () => {
   const [openAddEditModal, setOpenAddEditModal] = useState({
     isShown: false,
@@ -21,7 +20,7 @@ const Home = () => {
   })
 
   const [loading, setLoading] = useState(true)
-  const [searchLoading, setSearchLoading] = useState(false)
+  const [searchLoading, setSearchLoading] = useState(false) // State to manage search loading
 
   const [allNotes, setAllNotes] = useState([])
   const [userInfo, setUserInfo] = useState(null)
@@ -39,7 +38,7 @@ const Home = () => {
     const fetchData = async () => {
       await getAllNotes()
       await getUserInfo()
-      setLoading(false) // Dừng hiệu ứng loading sau khi dữ liệu được tải xong
+      setLoading(false)
     }
 
     fetchData()
@@ -57,12 +56,6 @@ const Home = () => {
     })
   }
 
-  // const handleCloseToast = () => {
-  //   setShowToastMsg({
-  //     isShown: false,
-  //     message: ""
-  //   })
-  // }
   const handleCloseToast = useCallback(() => {
     setShowToastMsg(prevState => ({
       ...prevState,
@@ -70,7 +63,7 @@ const Home = () => {
     }))
   }, [])
   
-  //Get user info 
+  // Get user info 
   const getUserInfo = async () => {
     try {
       const response = await axiosInstance.get("/get-user")
@@ -85,11 +78,10 @@ const Home = () => {
     }
   }
 
-  //Get all notes
+  // Get all notes
   const getAllNotes = async () => {
     try{
       const response = await axiosInstance.get("/get-all-notes")
-
       if(response.data && response.data.notes){
         setAllNotes(response.data.notes)
       }
@@ -98,25 +90,23 @@ const Home = () => {
     }
   }
 
-  //Delete note
+  // Delete note
   const deleteNote = async(data) => {
     const noteId = data._id
-
     try {
       const response = await axiosInstance.delete("/delete-note/" + noteId)
-        
       if(response.data && !response.data.error){
         showToastMessage("Note deleted successfully", 'delete')
         getAllNotes()
       }
-  } catch (error) {
+    } catch (error) {
       if(error.response && error.response.data && error.response.data.message){
         console.log("An unexpected err occurred. Please try again.")
       }
-  }
+    }
   }
 
-  //Search note
+  // Search note
   const onSearchNote = async (query) => {
     setSearchLoading(true) // Start the loading
     try {
@@ -133,18 +123,16 @@ const Home = () => {
       setSearchLoading(false) // Stop the loading after the search is done
     }
   }
-  
-  //Pin note
+
+  // Pin note
   const updateIsPinned = async (noteData) => {
     const noteId = noteData._id
-
     try {
       const response = await axiosInstance.put("/update-note-pinned/" + noteId, {
         isPinned: !noteData.isPinned
       })
-
       if(response.data && response.data.note){
-        showToastMessage("Note update successfully")
+        showToastMessage("Note updated successfully")
         getAllNotes()
       }
     } catch (error) {
@@ -157,12 +145,6 @@ const Home = () => {
     getAllNotes()
   }
 
-  useEffect(() => {
-    getAllNotes()
-    getUserInfo()
-    return () => {}
-  }, [])
-
   return (
     <>
       {loading ? (
@@ -171,26 +153,33 @@ const Home = () => {
         <>
           <Navbar userInfo={userInfo} onSearchNote={onSearchNote} handleClearSearch={handleClearSearch} />
           <div className='container mx-auto'>
-            {allNotes.length > 0 ? (
-              <div className='grid grid-cols-3 gap-4 mt-8'>
-                {allNotes.map((item, index) => (
-                  <NoteCard 
-                    key={item._id}
-                    title={item.title}
-                    date={item.createdOn}
-                    content={item.content}
-                    tags={item.tags}
-                    isPinned={item.isPinned}
-                    onEdit={()=>handleEdit(item)}
-                    onDelete={()=>deleteNote(item)}
-                    onPinNote={()=>updateIsPinned(item)}
-                  />
-                ))}
-              </div>
+            {searchLoading ? ( // Show loading during search
+              <Loading />
             ) : (
-              <EmptyCard 
-                imgSrc={isSearch ? NoDataImg : AddNotesImg}
-                message={isSearch ? `Oops! No notes found matching your search.` : `Start create your first note! Click the 'ADD' button and get started!`}/>
+              <>
+                {allNotes.length > 0 ? (
+                  <div className='grid grid-cols-3 gap-4 mt-8'>
+                    {allNotes.map((item, index) => (
+                      <NoteCard 
+                        key={item._id}
+                        title={item.title}
+                        date={item.createdOn}
+                        content={item.content}
+                        tags={item.tags}
+                        isPinned={item.isPinned}
+                        onEdit={()=>handleEdit(item)}
+                        onDelete={()=>deleteNote(item)}
+                        onPinNote={()=>updateIsPinned(item)}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <EmptyCard 
+                    imgSrc={isSearch ? NoDataImg : AddNotesImg}
+                    message={isSearch ? `Oops! No notes found matching your search.` : `Start create your first note! Click the 'ADD' button and get started!`}
+                  />
+                )}
+              </>
             )}
           </div>
   
@@ -212,17 +201,17 @@ const Home = () => {
               },
             }}
             contentLabel=''
-            className='w-[40%] max-h-3/4 bg-white rounded-md mx-auto mt-14 p-5 overflow-none' //overflow-scroll
+            className='w-[40%] max-h-3/4 bg-white rounded-md mx-auto mt-14 p-5 overflow-none'
           >
-          <AddEditNotes
-            type={openAddEditModal.type}
-            noteData={openAddEditModal.data}
-            onClose={() => {
-              setOpenAddEditModal({isShown: false, type: 'add', data: null})
-            }}
-            getAllNotes={getAllNotes}
-            showToastMessage={showToastMessage}
-          />
+            <AddEditNotes
+              type={openAddEditModal.type}
+              noteData={openAddEditModal.data}
+              onClose={() => {
+                setOpenAddEditModal({isShown: false, type: 'add', data: null})
+              }}
+              getAllNotes={getAllNotes}
+              showToastMessage={showToastMessage}
+            />
           </Modal>
   
           <Toast
@@ -235,7 +224,6 @@ const Home = () => {
       )}
     </>
   )
-  
 }
 
 export default Home
