@@ -107,22 +107,34 @@ const Home = () => {
   }
 
   // Search note
-  const onSearchNote = async (query) => {
-    setSearchLoading(true) // Start the loading
-    try {
-      const response = await axiosInstance.get("/search-notes", {
-        params: {query}
-      })
-      if(response.data && response.data.notes){
-        setIsSearch(true)
-        setAllNotes(response.data.notes)
-      }
-    } catch (error) {
-      console.log(error)
-    } finally {
-      setSearchLoading(false) // Stop the loading after the search is done
-    }
+ // Search note
+const onSearchNote = async (query) => {
+  setSearchLoading(true) // Start the loading
+
+  if (!query) {
+    // If the search query is empty, fetch all notes
+    setIsSearch(false)
+    await getAllNotes()
+    setSearchLoading(false) // Stop the loading after the notes are fetched
+    return
   }
+
+  try {
+    const response = await axiosInstance.get("/search-notes", {
+      params: { query }
+    })
+
+    if (response.data && response.data.notes) {
+      setIsSearch(true)
+      setAllNotes(response.data.notes)
+    }
+  } catch (error) {
+    console.log(error)
+  } finally {
+    setSearchLoading(false) // Stop the loading after the search is done
+  }
+}
+
 
   // Pin note
   const updateIsPinned = async (noteData) => {
