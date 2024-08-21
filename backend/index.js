@@ -323,6 +323,8 @@ app.get("/search-notes", authenticateToken, async (req, res) => {
 });
 
 //app.listen(8000)
-app.listen(`https://notes-app-server-zeta.vercel.app`)
-
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
 module.exports = app
