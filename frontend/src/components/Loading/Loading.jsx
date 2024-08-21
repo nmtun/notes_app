@@ -2,7 +2,7 @@ import React from 'react'
 
 const Loading = () => {
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-75 z-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-75 z-50" style={{top: '60px'}}>
       <div className="text-center">
         <div role="status">
           <svg 
