@@ -1,22 +1,9 @@
 {
-<<<<<<< HEAD
     "version": 2,
     "builds": [
         {
             "src": "*.js",
             "use": "@vercel/node"
-=======
-    "installCommand": "npm install --legacy-peer-deps",
-    "version": 2,
-    "builds": [
-        {
-            "src": "index.js",
-            "use": "@vercel/node"
-        },
-        {
-            "src": "src/**/*",
-            "use": "vercel/static"
->>>>>>> b925b251377f91ff22b9904ce20d71a246b19722
         }
     ],
     "routes": [
@@ -25,8 +12,4 @@
             "dest": "/"
         }
     ]
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> b925b251377f91ff22b9904ce20d71a246b19722
