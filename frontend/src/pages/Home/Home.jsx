@@ -21,7 +21,7 @@ const Home = () => {
   })
 
   const [loading, setLoading] = useState(true)
-
+  const [searchLoading, setSearchLoading] = useState(false)
 
   const [allNotes, setAllNotes] = useState([])
   const [userInfo, setUserInfo] = useState(null)
@@ -118,20 +118,22 @@ const Home = () => {
 
   //Search note
   const onSearchNote = async (query) => {
+    setSearchLoading(true) // Start the loading
     try {
       const response = await axiosInstance.get("/search-notes", {
         params: {query}
       })
-
       if(response.data && response.data.notes){
         setIsSearch(true)
         setAllNotes(response.data.notes)
       }
     } catch (error) {
       console.log(error)
+    } finally {
+      setSearchLoading(false) // Stop the loading after the search is done
     }
   }
-
+  
   //Pin note
   const updateIsPinned = async (noteData) => {
     const noteId = noteData._id
