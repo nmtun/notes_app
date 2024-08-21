@@ -19,9 +19,7 @@ const {authenticateToken} = require("./utilities")
 
 app.use(
     cors({
-        origin: ["https://notes-app-client-nu.vercel.app"],
-        methods: ["POST", "GET", "PUT", "DELETE"],
-        credentials: true
+        origin: "*"
     })
 )
 
