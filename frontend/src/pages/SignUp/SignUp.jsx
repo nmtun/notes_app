@@ -39,11 +39,6 @@ const SignUp = () => {
 
       //Handle successful registratation response
       if(response.data && response.data.accessToken){
-        setError(response.data.message)
-        return 
-      }
-
-      if(response.data && response.data.accessToken){
         localStorage.setItem("token", response.data.accessToken)
         navigate("/dashboard")
       }
