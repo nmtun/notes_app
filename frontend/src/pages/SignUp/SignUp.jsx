@@ -36,7 +36,7 @@ const SignUp = () => {
         email: email,
         password: password
       })
-
+        
       //Handle successful registratation response
       if(response.data && response.data.accessToken){
         localStorage.setItem("token", response.data.accessToken)
